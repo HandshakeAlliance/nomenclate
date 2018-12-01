@@ -1,0 +1,27 @@
+{
+  "name": "nomenclate",
+  "version": "0.1.0",
+  "description": "A plugin for HSD to mimick electrum",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Handshake Alliance Contributors",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^3.3.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "prettier": "^1.15.2"
+  },
+  "dependencies": {
+    "assert": "^1.4.1",
+    "bdb": "^1.1.2",
+    "bevent": "^0.1.2",
+    "blgr": "^0.1.2",
+    "bval": "^0.1.4",
+    "bweb": "^0.1.4",
+    "hsd": "github:handshake-org/hsd",
+    "path": "^0.12.7"
+  }
+}

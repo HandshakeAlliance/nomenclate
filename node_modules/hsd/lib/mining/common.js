@@ -1,0 +1,129 @@
+/*!
+ * common.js - mining utils
+ * Copyright (c) 2017-2018, Christopher Jeffrey (MIT License).
+ * https://github.com/handshake-org/hsd
+ */
+
+'use strict';
+
+const assert = require('bsert');
+const consensus = require('../protocol/consensus');
+const BN = require('bcrypto/lib/bn.js');
+
+/**
+ * @exports mining/common
+ */
+
+const common = exports;
+
+/*
+ * Constants
+ */
+
+const DIFF = 0x00000000ffff0000000000000000000000000000000000000000000000000000;
+const B192 = 0x1000000000000000000000000000000000000000000000000;
+const B128 = 0x100000000000000000000000000000000;
+const B64 = 0x10000000000000000;
+const B0 = 0x1;
+
+/**
+ * Swap 32 bit endianness of uint256.
+ * @param {Buffer} data
+ * @returns {Buffer}
+ */
+
+common.swap32 = function swap32(data) {
+  for (let i = 0; i < data.length; i += 4) {
+    const field = data.readUInt32LE(i, true);
+    data.writeUInt32BE(field, i, true);
+  }
+
+  return data;
+};
+
+/**
+ * Convert a uint256be to a double.
+ * @param {Buffer} target
+ * @returns {Number}
+ */
+
+common.double256 = function double256(target) {
+  let n = 0;
+  let hi, lo;
+
+  assert(target.length === 32);
+
+  hi = target.readUInt32BE(0, true);
+  lo = target.readUInt32BE(4, true);
+  n += (hi * 0x100000000 + lo) * B192;
+
+  hi = target.readUInt32BE(8, true);
+  lo = target.readUInt32BE(12, true);
+  n += (hi * 0x100000000 + lo) * B128;
+
+  hi = target.readUInt32BE(16, true);
+  lo = target.readUInt32BE(20, true);
+  n += (hi * 0x100000000 + lo) * B64;
+
+  hi = target.readUInt32BE(24, true);
+  lo = target.readUInt32BE(28, true);
+  n += (hi * 0x100000000 + lo) * B0;
+
+  return n;
+};
+
+/**
+ * Calculate mining difficulty
+ * from little-endian target.
+ * @param {Buffer} target
+ * @returns {Number}
+ */
+
+common.getDifficulty = function getDifficulty(target) {
+  const d = DIFF;
+  const n = common.double256(target);
+
+  if (n === 0)
+    return d;
+
+  return Math.floor(d / n);
+};
+
+/**
+ * Get target from bits as a uint256le.
+ * @param {Number} bits
+ * @returns {Buffer}
+ */
+
+common.getTarget = function getTarget(bits) {
+  const target = consensus.fromCompact(bits);
+
+  if (target.isNeg())
+    throw new Error('Target is negative.');
+
+  if (target.isZero())
+    throw new Error('Target is zero.');
+
+  if (target.bitLength() > 256)
+    throw new Error('Target overflow.');
+
+  return target.toArrayLike(Buffer, 'be', 32);
+};
+
+/**
+ * Get bits from target.
+ * @param {Buffer} data
+ * @returns {Buffer}
+ */
+
+common.getBits = function getBits(data) {
+  const target = new BN(data, 'be');
+
+  if (target.isZero())
+    throw new Error('Target is zero.');
+
+  if (target.bitLength() > 256)
+    throw new Error('Target overflow.');
+
+  return consensus.toCompact(target);
+};
