@@ -15,10 +15,12 @@
     "prettier": "^1.15.2"
   },
   "dependencies": {
+    "bcrypto": "^3.0.1",
     "bdb": "^1.1.2",
     "bevent": "^0.1.2",
     "blgr": "^0.1.2",
     "bsert": "0.0.5",
+    "bstring": "^0.3.4",
     "bval": "^0.1.4",
     "bweb": "^0.1.4",
     "hsd": "github:handshake-org/hsd",
