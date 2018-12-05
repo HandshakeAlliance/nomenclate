@@ -1,4 +1,5 @@
 Welcome to the Nomenclate Docs!
 
-##Implementation
-- [Indexing Schema][schema]
+## Implementation
+
+[Indexing Schema](/schema.md)
