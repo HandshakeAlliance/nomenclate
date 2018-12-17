@@ -21,6 +21,12 @@ In order to enable Nomenclate with your Handshake Daemon, add the flag:
 to your HSD startup script. Ensure that nomenclate is installed in the repository from which
 you are running your daemon.
 
+## Bindings
+
+Below is a list of bindings that make interacting with Nomenclate much easier.
+
+- Javascript - [Nomenclate-js](https://github.com/HandshakeAlliance/nomenclate-js)
+
 
 ## License
 
