@@ -1,7 +1,9 @@
 {
   "name": "nomenclate",
   "version": "0.4.0",
-  "protocolVersion": "1.0",
+  "protocol": [
+    "1.0"
+  ],
   "description": "A plugin for HSD to mimick electrum",
   "main": "lib/index.js",
   "scripts": {
