@@ -28,9 +28,7 @@
     "bufio": "^1.0.3",
     "bval": "^0.1.4",
     "bweb": "^0.1.4",
+    "hsd": "github:handshake-org/hsd",
     "path": "^0.12.7"
-  },
-  "peerDependencies": {
-    "hsd": "*"
   }
 }
