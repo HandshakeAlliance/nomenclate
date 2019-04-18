@@ -26,6 +26,7 @@ you are running your daemon.
 Below is a list of bindings that make interacting with Nomenclate much easier.
 
 - Javascript - [Nomenclate-js](https://github.com/HandshakeAlliance/nomenclate-js)
+- Rust - [Nomenclate-rs](https://github.com/HandshakeAlliance/nomenclate-rs)
 
 
 ## License
